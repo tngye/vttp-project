@@ -28,6 +28,7 @@ public class HomeService {
 
     List<News> newsList = new ArrayList<>();
 
+    
     public Integer pageNumber;
     
     public List<News> getNews(Integer page) throws IOException{
