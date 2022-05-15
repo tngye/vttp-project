@@ -70,7 +70,7 @@ public class HomeService {
 
         JsonArray dataArr = data.getJsonArray("results");
 
-        System.out.println(">>>>dataArr: " + dataArr);
+        // System.out.println(">>>>dataArr: " + dataArr);
         
         News news = new News();
 
@@ -80,7 +80,7 @@ public class HomeService {
             ValueType type = obj.get("image_url").getValueType();
             if(type != ValueType.NULL){
                 
-            System.out.println(">>>>img: " + obj.get("image_url").toString());
+            // System.out.println(">>>>img: " + obj.get("image_url").toString());
                 news = News.create(obj);
                 if(newsList.size() < 9){
                     newsList.add(news);
@@ -88,10 +88,6 @@ public class HomeService {
             }
             
         }
-        // for(int m = 0; m<newsList.size(); m++){
-
-        //     System.out.println(">>>url: " +newsList.get(m).getTitle());
-        // }
 
         if(newsList.size()<9){
             getNews(pageNumber + 1);

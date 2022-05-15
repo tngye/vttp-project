@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+        integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap4.min.css">
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="container">
+        <nav th:replace="fragments/layout.html :: topnav" class="navbar"></nav>
+    </div>
+
+    <!-- eastteamtables -->
+    <div class="container mt-5" id="teamsTable">
+        <table id="teamTable" class="table table-bordered">
+            <thead>
+            <tr>
+                <th colspan="4">EASTERN CONFERENCE</th>
+            </tr>
+            <tr>
+                <th colspan="4">Eastern Southeast
+                    <button type="button" class="btn accordion-toggle" data-toggle="collapse"
+                        data-target="#eastSoutheast"><img src="/images/dash.png" width="20" height="4" /></button>
+                </th>
+            </tr>
+                <tr id="eastSoutheast" class="accordion-body">
+                    <th>Name</th>
+                    <th>Nickname</th>
+                    <th>City</th>
+                    <th>Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="teamsList : ${teamsList}" th:if="${teamsList.league == 'East Southeast'}">
+
+                    <td>
+                        <img th:src="${teamsList.logo}" width="60" height="60" />&nbsp;&nbsp;
+                        <span data-th-text="${teamsList.name}"></span>
+                    </td>
+                    <td data-th-text="${teamsList.nickname}"></td>
+                    <td data-th-text="${teamsList.city}"></td>
+                    <td data-th-text="${teamsList.code}"></td>
+                </tr>
+            </tbody>
+
+            <div th:each="eastleagues : ${eastleagues}">
+                <thead>
+                <tr>
+                    <th colspan="4"><span data-th-text="${eastleagues.substring(0,4) + ' ' + eastleagues.substring(4)}"></span>
+                        <button type="button" class="btn accordion-toggle" data-toggle="collapse"
+                            th:data-target="'#'+ ${eastleagues}"><img src="/images/dash.png" width="20"
+                                height="4" /></button>
+                    </th>
+
+                </tr>
+                    <tr th:id="${eastleagues}" class="accordion-body collapse">
+                        <th>Name</th>
+                        <th>Nickname</th>
+                        <th>City</th>
+                        <th>Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="teamsList : ${teamsList}"
+                        th:if="${teamsList.league == eastleagues.substring(0,4) + ' ' + eastleagues.substring(4)}">
+
+                        <td>
+                            <img th:src="${teamsList.logo}" width="60" height="60" />&nbsp;&nbsp;
+                            <span data-th-text="${teamsList.name}"></span>
+                        </td>
+                        <td data-th-text="${teamsList.nickname}"></td>
+                        <td data-th-text="${teamsList.city}"></td>
+                        <td data-th-text="${teamsList.code}"></td>
+                    </tr>
+                </tbody>
+
+            </div>
+        </table>
+    </div>
+
+    <!-- westteamTables -->
+    <div class="container mt-5" id="teamsTable">
+        <table id="teamTable" class="table table-bordered">
+            <tr>
+                <th colspan="4">WESTERN CONFERENCE</th>
+            </tr>
+
+            <div th:each="westleagues : ${westleagues}">
+                <tr>
+                    <th colspan="4"><span data-th-text="${westleagues.substring(0,4) + ' ' + westleagues.substring(4)}"></span>
+                        <button type="button" class="btn accordion-toggle" data-toggle="collapse"
+                            th:data-target="'#'+ ${westleagues}"><img src="/images/dash.png" width="20"
+                                height="4" /></button>
+                    </th>
+
+                </tr>
+                <tbody th:id="${westleagues}" class="accordion-body collapse">
+                    <tr>
+                        <th>Name</th>
+                        <th>Nickname</th>
+                        <th>City</th>
+                        <th>Code</th>
+                    </tr>
+                    <tr th:each="teamsList : ${teamsList}"
+                        th:if="${teamsList.league == westleagues.substring(0,4) + ' ' + westleagues.substring(4)}">
+
+                        <td>
+                            <img th:src="${teamsList.logo}" width="60" height="60" />&nbsp;&nbsp;
+                            <span data-th-text="${teamsList.name}"></span>
+                        </td>
+                        <td data-th-text="${teamsList.nickname}"></td>
+                        <td data-th-text="${teamsList.city}"></td>
+                        <td data-th-text="${teamsList.code}"></td>
+                    </tr>
+                </tbody>
+
+            </div>
+        </table>
+    </div>
+</body>
+
+</html>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    $(".btn").click(function () {
+        if ($($(this).data("target")).hasClass("collapse")) {
+            $($(this).data("target")).removeClass("collapse");
+        } else {
+            $($(this).data("target")).addClass("collapse");
+        }
+    });
+
+// (function() {
+//     $('#eastSoutheast .toggle').on('click', function() {
+//         $('#eastSoutheast .hideableRow').toggleClass('hiddenRow');
+//     });
+// })()
+
+$(document).ready(function () {
+  $('#teamTable').DataTable({
+    "searching": true, // false to disable search (or any other option)
+    "ordering": true // false to disable sorting (or any other option)
+  });
+  $('.dataTables_length').addClass('bs-select');
+});
+</script>
