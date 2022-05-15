@@ -23,10 +23,11 @@ import sg.edu.nus.iss.vttpproject.model.News;
 @Service
 public class HomeService {
     
-    @Value("${news.data.key}")
+    @Value("${news.api.key}")
     private String newsApiKey;
 
     List<News> newsList = new ArrayList<>();
+
 
     public Integer pageNumber;
     
