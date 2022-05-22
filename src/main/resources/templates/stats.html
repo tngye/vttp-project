@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+        integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="container">
+        <nav th:replace="fragments/layout.html :: topnav" class="navbar"></nav>
+    </div>
+
+    <div style="margin-top:-10px;">
+        <table class="playerstatstable" width="100%">
+            <tr width="100%">
+                <td width="35%" rowspan="2">
+                    <img th:src="@{https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{id}.png(id=${player.id})}"
+                        width="390" height="285" style="margin-left:50px" />
+                </td>
+                <td width="60%" colspan="3">
+                    <span class="playername" data-th-text="${player.name}"></span><br>
+                    <span class="playercountry" data-th-text="${player.country}"></span>
+                </td>
+                <td style="padding-right: 79px; padding-top:20px;">
+                    <a th:href="@{/players/addtofav/{id}(id=${player.id})}" class="btn btn-warning" role="button" aria-pressed="true"><i id="addtofav"
+                        th:class="@{{star} fa-xl fa-star(star=${star})}"></i>&nbsp;&nbsp; <span data-th-text="${addedmessage}"></a>
+                </td>
+            </tr>
+            <tr width="60%" style="margin-right:10px;">
+                <td class="statsdetails bgblue">Height: <br><span class="detailsspan"
+                        data-th-text="${player.height}"></span> meters</td>
+                <td class="statsdetails bgred">Weight: <br><span class="detailsspan"
+                        data-th-text="${player.weight}"></span> kilograms</td>
+                <td class="statsdetails bgblue">Date of Birth: <br><span class="detailsspan"
+                        data-th-text="${player.strdob}"></span></td>
+                <td class="statsdetails bgred">Jersey: <br><span class="detailsspan"
+                        data-th-text="${player.jerseyNo}"></span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container mt-5" id="chart_div"></div>
+
+</body>
+
+</html>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    google.charts.load('current', { 'packages': ['bar'] });
+    google.charts.setOnLoadCallback(drawChart);
+    var assists =/*[[${player.stats.assists}]]*/[];
+    var blocks =/*[[${player.stats.blocks}]]*/[];
+    var steals =/*[[${player.stats.steals}]]*/[];
+    var turnover =/*[[${player.stats.turnover}]]*/[];
+    var offensiveRebound =/*[[${player.stats.offensiveRebound}]]*/[];
+    var defensiveRebound =/*[[${player.stats.defensiveRebound}]]*/[];
+    var totalRebound =/*[[${player.stats.totalRebound}]]*/[];
+    var points =/*[[${player.stats.points}]]*/[];
+    var gamesPlay =/*[[${player.stats.gamesPlay}]]*/[];
+    var pFouls =/*[[${player.stats.pFouls}]]*/[];
+
+    function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Statistics');
+        data.addColumn('number', 'Counts');
+
+        data.addRows([
+            ['Assists', assists],
+            ['Blocks', blocks],
+            ['Steals', steals],
+            ['Turnovers', turnover],
+            ['Offensive rebounds', offensiveRebound],
+            ['Defensive rebounds', defensiveRebound],
+            ['Total rebounds', totalRebound],
+            ['Points', points],
+            ['Games played', gamesPlay],
+            ['Personal fouls', pFouls]
+        ]);
+
+        var options = {
+            chart: {
+                title: 'Personal Player Statistics',
+            },
+            bars: 'vertical',
+            vAxis: { format: 'decimal' },
+            height: 500,
+            colors: ['#1C4188']
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+
+        var btns = document.getElementById('btn-group');
+    }
+    /*]]>*/
+
+    // function addtofav() {
+    //     if ($('#addtofav').hasClass('far')) {
+    //         $('#addtofav').removeClass('far');
+    //         $('#addtofav').addClass('fas');
+    //     } else {
+    //         $('#addtofav').removeClass('fas');
+    //         $('#addtofav').addClass('far');
+    //     }
+    // }
+</script>

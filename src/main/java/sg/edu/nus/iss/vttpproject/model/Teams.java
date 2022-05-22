@@ -2,6 +2,8 @@ package sg.edu.nus.iss.vttpproject.model;
 
 import java.util.List;
 
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
 import jakarta.json.JsonObject;
 import jakarta.json.JsonValue.ValueType;
 
@@ -13,6 +15,7 @@ public class Teams {
     private String city;
     private String logo;
     private String league;
+    private TeamStats stats;
 
     public Integer getId() {
         return id;
@@ -70,6 +73,15 @@ public class Teams {
         this.league = league;
     }
 
+
+    public TeamStats getStats() {
+        return stats;
+    }
+
+    public void setStats(TeamStats stats) {
+        this.stats = stats;
+    }
+
     public static Teams create(JsonObject obj) {
         Teams teams = new Teams();
         teams.setId(obj.getInt("id"));
@@ -94,6 +106,21 @@ public class Teams {
         teams.setLeague(league);
         teams.setLogo(logo);
         return teams;
+    }
+
+    public static Teams convert(SqlRowSet rs) {
+        Teams team = new Teams();
+        team.setId(rs.getInt("team_id"));
+        team.setName(rs.getString("name"));
+        team.setNickname(rs.getString("nickname"));
+        team.setCode(rs.getString("code"));
+        team.setCity(rs.getString("city"));
+        team.setLogo(rs.getString("logo"));
+        team.setLeague(rs.getString("league"));
+        TeamStats stats = new TeamStats();
+        stats = stats.convert(rs);
+        team.setStats(stats);
+        return team;
     }
 
 }
