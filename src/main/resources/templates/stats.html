@@ -47,7 +47,7 @@
                         data-th-text="${player.height}"></span> meters</td>
                 <td class="statsdetails bgred">Weight: <br><span class="detailsspan"
                         data-th-text="${player.weight}"></span> kilograms</td>
-                <td class="statsdetails bgblue">Date of Birth: <br><span class="detailsspan"
+                <td class="statsdetails bgblue">Date of Birth: <br><span style="font-size:22.4px; line-height: 41px;"
                         data-th-text="${player.strdob}"></span></td>
                 <td class="statsdetails bgred">Jersey: <br><span class="detailsspan"
                         data-th-text="${player.jerseyNo}"></span></td>
@@ -55,7 +55,46 @@
         </table>
     </div>
 
-    <div class="container mt-5" id="chart_div"></div>
+    <div class="stats-bg">
+        <table style="width:95%; margin:auto;">
+            <tr>
+                <td>
+                    <div class="tdstats">
+                        <h3>Games Played </h3>
+                        <br>
+                        <span class="statsfont" data-th-text="${player.stats.gamesPlay}"></span>
+                    </div>
+                </td>
+                <td rowspan="2" style="width:50%; padding-left: 50px;">
+                    <div class="container tdchart" id="chart_div"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="tdstats" style="background: #F75175 ! important;">
+
+                        <h3>Points </h3>
+                        <br>
+                        <span class="statsfont" data-th-text="${player.stats.points}"></span>
+                    </div>
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>
+                    <div class="tdstats" style="background: #13D174 ! important;">
+
+                        <h3>Biggest Lead </h3>
+                        <br>
+                        <span class="statsfont" data-th-text="${player.stats.gamesPlay}"></span>
+                    </div>
+                </td>
+            </tr> -->
+        </table>
+        <br>
+        <br>
+    </div>
+
+    
 
 </body>
 
@@ -91,20 +130,36 @@
             ['Offensive rebounds', offensiveRebound],
             ['Defensive rebounds', defensiveRebound],
             ['Total rebounds', totalRebound],
-            ['Points', points],
-            ['Games played', gamesPlay],
             ['Personal fouls', pFouls]
         ]);
 
         var options = {
-            chart: {
-                title: 'Personal Player Statistics',
-            },
-            bars: 'vertical',
-            vAxis: { format: 'decimal' },
-            height: 500,
-            colors: ['#1C4188']
-        };
+                chart: {
+                    title: 'Personal Player Statistics',
+                },
+                bars: 'vertical',
+                vAxis: { format: 'decimal',
+                    textStyle:
+                    {color: 'white'}
+                },
+                hAxis:{
+                    showTextEvery: 1,
+                    textStyle:
+                    {color: 'white'}
+                },
+                height: 500,
+                colors: ['#DF4ECD'],
+                backgroundColor: '#28293D',
+                fontSize: 20,
+                chartArea:{
+                    width:'100%',
+                    backgroundColor:'#28293D'},
+                    // width:800
+                legend: {position: 'none'},
+                titleTextStyle:{
+                    color:'white'
+                }
+            };
 
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
 

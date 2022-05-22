@@ -1,22 +1,22 @@
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 
 .newsList {
     display: block;
@@ -55,15 +55,16 @@ nav {
     margin: -8px;
 }
 
-.btnsearch{
-    float:none ! important ;
-    margin: none ! important ;
-}
-.inputsearch{
-    height:35px;
+.btnsearch {
+    float: none ! important;
+    margin: none ! important;
 }
 
-#playersTable_wrapper {
+.inputsearch {
+    height: 35px;
+}
+
+#playersTable_wrapper, #teamsTable_wrapper {
     margin-left: -100px;
     margin-right: -100px;
 }
@@ -120,54 +121,64 @@ table.playerstatstable tr {
 }
 
 .playername {
-    font-size: 90px;
+    font-size: 50px;
     color: #515053;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 700;
 }
 
 .playercountry {
-    font-size: 40px;
+    font-size: 20px;
     color: #515053;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 500;
     margin-left: 10px;
     margin-top: -50px;
 }
-.detailsspan{
-    font-size: 22px;
-}
-.statsdetails {
-    height: 80px;
-    border: 1px solid black;
-    width: 15%;
-    font-size: 16px;
-    padding:20px;
-    text-align: center;
-    color:white;
-}
-.bgblue {
-    background-color: #1C4188;
-  }
-  .bgblue:hover {
-    background-color: #112a59;
-  }
-.bgred{
-    background-color: #C70E2D;
-}
-.bgred:hover{
-    background-color: #5b0d1a;
+
+.detailsspan {
+    font-size: 30px;
 }
 
-.containernews{
+.statsdetails {
+    height: 80px;
+    /* border: 1px solid black; */
+    width: 15%;
+    font-size: 20px;
+    padding: 6px;
+    text-align: center;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    /* font-weight: bold; */
+}
+
+.bgblue {
+    background-color: #1C4188;
+    /* background-color: #00BAE1; */
+}
+
+.bgblue:hover {
+    background-color: #112a59;
+}
+
+.bgred {
+    background-color: #C70E2D;
+    /* background-color: #F75175; */
+}
+
+.bgred:hover {
+    background-color: #A70000;
+}
+
+.containernews {
     width: 86.5%;
-    padding-right: var(--bs-gutter-x,.75rem);
-    padding-left: var(--bs-gutter-x,.75rem);
+    padding-right: var(--bs-gutter-x, .75rem);
+    padding-left: var(--bs-gutter-x, .75rem);
     margin-right: auto;
     margin-left: auto;
 }
 
-.rownews{
+.rownews {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
     display: flex;
@@ -176,4 +187,33 @@ table.playerstatstable tr {
     margin-right: calc(-.5 * var(--bs-gutter-x));
     margin-left: calc(-.5 * var(--bs-gutter-x));
 }
-  
+
+.stats-bg {
+    background-color: #1F1E2E;
+    /* background-image:linear-gradient(#28293D, #4b4c66); */
+    margin-bottom: -50px;
+    padding-top: 50px;
+}
+
+.tdstats {
+    border-radius: 10px;
+    background: #00BAE1;
+    text-align: center;
+    padding: 5px;
+    padding-bottom: 10px !important;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold !important;
+    /* height: 140px; */
+}
+
+
+.tdchart {
+    background: #28293D;
+    padding: 20px;
+
+}
+
+.statsfont {
+    font-size: 40px;
+}

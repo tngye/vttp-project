@@ -37,6 +37,9 @@ public interface Queries {
     public static final String SQL_SELECT_ALL_FAV =
     "select * from usersfavplayers where username = ?";
 
+    public static final String SQL_INSERT_STATS_TEAM = 
+    "update teams set gamesPlayed = ?, biggestLead = ?, secondChancePoints = ?, pointsOffTurnovers = ?, longestRun = ?, points = ?, offReb = ? , defReb = ? , totReb = ?, assists = ?, pFouls = ?, steals = ?, turnovers = ?, blocks = ? where team_id = ?";
+
     public static final String SQL_INSERT_FAV_TEAMS = 
     "insert into usersfavteams (username, team_id) values (?, ?)";
 

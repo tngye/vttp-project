@@ -65,5 +65,15 @@ public class UserRepository {
             return false;
         }
     }
+
+    public List<Integer> getFavouritesTeams(String username) {
+        List<Integer> ids = new LinkedList<>();
+        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_ALL_FAV_TEAMS, username);
+        while (rs.next()) {
+            Integer id = rs.getInt("team_id");
+            ids.add(id);
+        }
+        return ids;
+    }
     
 }

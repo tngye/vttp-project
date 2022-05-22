@@ -101,6 +101,8 @@ public class TeamService {
             ex.printStackTrace();
         }
 
+        System.out.println(">>>>resp: " + resp);
+
         JsonObject data = null;
 
         try (InputStream is = new ByteArrayInputStream(resp.getBody().getBytes())) {
@@ -110,12 +112,16 @@ public class TeamService {
 
         JsonObject dataObj = data.getJsonArray("response").getJsonObject(0);
 
-        // System.out.println(">>>>TeamsArr: " + dataArr);
+        System.out.println(">>>>dataObj: " + dataObj.getInt("games"));
         
         TeamStats teamstats = new TeamStats();
 
         teamstats = TeamStats.create(dataObj);
-        
+        try{
+            tRepo.saveStats(teamstats, id);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return teamstats;
     }
 

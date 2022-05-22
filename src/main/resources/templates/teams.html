@@ -93,7 +93,7 @@
 
                         <td>
                             <img th:src="${teamsList.logo}" width="60" height="60" />&nbsp;&nbsp;
-                            <span data-th-text="${teamsList.name}"></span>
+                            <a th:href="@{/teams/stats/{id}(id=${teamsList.id})}" data-th-text="${teamsList.name}"></a>
                         </td>
                         <td data-th-text="${teamsList.nickname}"></td>
                         <td data-th-text="${teamsList.city}"></td>

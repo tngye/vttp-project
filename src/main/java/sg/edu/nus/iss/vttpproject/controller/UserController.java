@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.nus.iss.vttpproject.model.Players;
+import sg.edu.nus.iss.vttpproject.model.Teams;
 import sg.edu.nus.iss.vttpproject.services.UserService;
 
 @Controller
@@ -21,8 +22,10 @@ public class UserController {
     
     @GetMapping("/{username}/favourites")
     public String getFavourites(@PathVariable String username, Model model){
-        List<Players> fav = uSvc.getFavourites(username);
-        model.addAttribute("playerList", fav);
+        List<Players> favPlayers = uSvc.getFavourites(username);
+        model.addAttribute("playerList", favPlayers);
+        List<Teams> favTeams = uSvc.getFavouritesTeams(username);
+        model.addAttribute("teamList", favTeams);
         return "favourites";
     }
 }

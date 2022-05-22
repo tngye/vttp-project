@@ -105,7 +105,7 @@ public class TeamController {
         }
 
         // prompt login if username null
-        sess.setAttribute("id", id);
+        sess.setAttribute("teamid", id);
         return "login";
     }
     

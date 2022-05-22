@@ -27,7 +27,36 @@
     </div>
 
     <div class="container mt-5 mb-5">
-        <h1 style="text-align:center;">Your Favourites</h1>
+        <h1 style="text-align:center;">Your Favourite Teams</h1>
+    </div>
+
+    <!-- teamstable -->
+    <div class="container mt-5 mb-5">
+        <table id="teamsTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:300px">Name</th>
+                    <th style="width:300px">Nickname</th>
+                    <th style="width:300px">City</th>
+                    <th style="width:300px">Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="teamList : ${teamList}">
+                    <td>
+                        <img th:src="${teamList.logo}" width="60" height="60" />&nbsp;&nbsp;
+                        <a th:href="@{/teams/stats/{id}(id=${teamList.id})}" data-th-text="${teamList.name}"></a>
+                    </td>
+                    <td data-th-text="${teamList.nickname}"></td>
+                    <td data-th-text="${teamList.city}"></td>
+                    <td data-th-text="${teamList.code}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5 mb-5">
+        <h1 style="text-align:center;">Your Favourite Players</h1>
     </div>
 
     <!-- playerstable -->
@@ -75,6 +104,10 @@
 <script>
     $(document).ready(function () {
         $('#playersTable').DataTable({
+            "searching": true, // false to disable search (or any other option)
+            "ordering": true // false to disable sorting (or any other option)});
+        });
+        $('#teamsTable').DataTable({
             "searching": true, // false to disable search (or any other option)
             "ordering": true // false to disable sorting (or any other option)});
         });

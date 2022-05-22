@@ -27,11 +27,11 @@
         <div style="margin-top:-10px;">
             <table class="playerstatstable" width="100%">
                 <tr width="100%">
-                    <td width="35%" rowspan="2">
+                    <td width="35%" rowspan="2" style="padding-top:10px; padding-bottom: 10px;">
                         <img th:src="${team.logo}"
-                            width="390" height="285" style="margin-left:50px" />
+                            width="285" height="285" style="margin-left:200px" />
                     </td>
-                    <td width="60%" colspan="3">
+                    <td width="60%" colspan="2">
                         <span class="playername" data-th-text="${team.name}"></span><br>
                         <span class="playercountry" data-th-text="${team.city}"></span>
                     </td>
@@ -42,17 +42,53 @@
                 </tr>
                 <tr width="60%" style="margin-right:10px;">
                     <td class="statsdetails bgblue">Nickname: <br><span class="detailsspan"
-                            data-th-text="${team.nickname}"></span> meters</td>
+                            data-th-text="${team.nickname}"></span></td>
                     <td class="statsdetails bgred">Code: <br><span class="detailsspan"
-                            data-th-text="${team.code}"></span> kilograms</td>
+                            data-th-text="${team.code}"></span></td>
                     <td class="statsdetails bgblue">League: <br><span class="detailsspan"
                             data-th-text="${team.league}"></span></td>
                 </tr>
             </table>
         </div>
     
-        <div class="container mt-5" id="chart_div"></div>
-    
+        <div class="stats-bg">
+            <table style="width:95%; margin:auto;">
+                <tr>
+                    <td>
+                        <div class="tdstats">
+                            <h3>Games Played </h3>
+                            <br>
+                            <span class="statsfont" data-th-text="${team.stats.gamesPlayed}"></span>
+                        </div>
+                    </td>
+                    <td rowspan="3" style="width:50%; padding-left: 50px;">
+                        <div class="container tdchart" id="chart_div"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="tdstats" style="background: #F75175 ! important;">
+
+                            <h3>Points </h3>
+                            <br>
+                            <span class="statsfont" data-th-text="${team.stats.points}"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="tdstats" style="background: #13D174 ! important;">
+
+                            <h3>Biggest Lead </h3>
+                            <br>
+                            <span class="statsfont" data-th-text="${team.stats.biggestLead}"></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+        </div>
     </body>
     
     </html>
@@ -71,14 +107,12 @@
         var offensiveRebound =/*[[${team.stats.offReb}]]*/[];
         var defensiveRebound =/*[[${team.stats.defReb}]]*/[];
         var totalRebound =/*[[${team.stats.totReb}]]*/[];
-        var points =/*[[${team.stats.points}]]*/[];
-        var gamesPlay =/*[[${team.stats.gamesPlayed}]]*/[];
         var pFouls =/*[[${team.stats.pFouls}]]*/[];
     
         function drawChart() {
     
             var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Statistics');
+            data.addColumn('string', '');
             data.addColumn('number', 'Counts');
     
             data.addRows([
@@ -89,8 +123,6 @@
                 ['Offensive rebounds', offensiveRebound],
                 ['Defensive rebounds', defensiveRebound],
                 ['Total rebounds', totalRebound],
-                ['Points', points],
-                ['Games played', gamesPlay],
                 ['Personal fouls', pFouls]
             ]);
     
@@ -99,9 +131,27 @@
                     title: 'Team Statistics',
                 },
                 bars: 'vertical',
-                vAxis: { format: 'decimal' },
+                vAxis: { format: 'decimal',
+                    textStyle:
+                    {color: 'white'}
+                },
+                hAxis:{
+                    showTextEvery: 1,
+                    textStyle:
+                    {color: 'white'}
+                },
                 height: 500,
-                colors: ['#1C4188']
+                colors: ['#DF4ECD'],
+                backgroundColor: '#28293D',
+                fontSize: 20,
+                chartArea:{
+                    width:'100%',
+                    backgroundColor:'#28293D'},
+                    // width:800
+                legend: {position: 'none'},
+                titleTextStyle:{
+                    color:'white'
+                }
             };
     
             var chart = new google.charts.Bar(document.getElementById('chart_div'));

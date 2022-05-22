@@ -76,6 +76,11 @@ public class LoginController {
             if(id !=null){
                 mvc = new ModelAndView("redirect:/players/addtofav/" + id );
             }
+            Integer teamid = (Integer)sess.getAttribute("teamid");
+            if(teamid !=null){
+                mvc = new ModelAndView("redirect:/teams/addtofav/" + teamid );
+            }
+            
         }
         
         return mvc;
