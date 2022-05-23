@@ -10,8 +10,14 @@ public interface Queries {
     public static final String SQL_SELECT_TEAMS_BY_ID =
     "select * from teams where team_id = ?";
 
+    public static final String SQL_DELETE_TEAM =
+    "delete from teams where team_id = ?";
+
     public static final String SQL_INSERT_USER = 
     "insert into users (username, password) values (?, sha1(?))";
+    
+    public static final String SQL_DELETE_USER =
+    "delete from users where username = ?";
 
     public static final String SQL_SELECT_USER = 
     "select * from users where username= ? and password= sha1(?)";

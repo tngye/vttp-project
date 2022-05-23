@@ -217,3 +217,25 @@ table.playerstatstable tr {
 .statsfont {
     font-size: 40px;
 }
+
+.center-xy {
+    width: inherit;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+
+        font-size: 45px;
+        letter-spacing: .2px;
+        font-family: 'Courier New', Courier, monospace;
+        
+  }
+  .center-xy>a{
+      font-size: 28px !important;
+      margin-left:5px;
+      color:#6167d8;
+  }
+  .center-xy>a:hover{
+    color:#2a2d5a;
+    text-decoration: underline;
+}

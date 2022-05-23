@@ -59,5 +59,9 @@ public class UserService {
         }
         return favList;
     }
+
+    public boolean deleteUsername(String username) {
+        return uRepo.deleteUsername(username);
+    }
     
 }

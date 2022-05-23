@@ -73,4 +73,9 @@ public class TeamRepository {
         return added > 0;
     }
 
+    public boolean deleteTeams(Integer id) {
+        int deleted = template.update(SQL_DELETE_TEAM, id);
+        return deleted > 0;
+    }
+
 }

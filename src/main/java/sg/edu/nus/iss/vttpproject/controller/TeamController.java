@@ -59,14 +59,17 @@ public class TeamController {
         String username = (String) sess.getAttribute("username");
         model.addAttribute("username", username);
         // getstats
+        try{
         TeamStats stats = tSvc.getStats(id);
+        }catch(Exception e){
+            return "error";
+        }
         Teams team = tSvc.getTeam(id);
         model.addAttribute("team", team);
 
         // checkfav for add icon
         if (username != null) {
             if (uSvc.checkFavTeam(id, username)) {
-                System.out.println(">>>>>>>id & username: " + id + " " + username);
                 model.addAttribute("star", "fas");
                 model.addAttribute("addedmessage", "Added to favourites!");
             } else {
@@ -87,7 +90,11 @@ public class TeamController {
         model.addAttribute("username", username);
 
         // get playerstats to reload page
-        TeamStats stats = tSvc.getStats(id);
+        try{
+            TeamStats stats = tSvc.getStats(id);
+        }catch(Exception e){
+            return "error";
+        }
         Teams team = tSvc.getTeam(id);
         model.addAttribute("team", team);
 

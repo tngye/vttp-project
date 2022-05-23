@@ -45,7 +45,7 @@
                 <tr th:each="playerList : ${playerList}">
                     <td>
                         <img th:src="@{https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{id}.png(id=${playerList.id})}"
-                            width="68" height="50" />&nbsp;&nbsp;
+                            width="68" height="50" th:alt="${playerList.name}"/>&nbsp;&nbsp;
                         <a th:href="@{/players/stats/{id}(id=${playerList.id})}" data-th-text="${playerList.name}"></a>
                         <!-- <a id="getPlayerStats" th:onclick="getPlayerStats(${playerList.name});" data-th-text="${playerList.name}"></a> -->
                     </td>

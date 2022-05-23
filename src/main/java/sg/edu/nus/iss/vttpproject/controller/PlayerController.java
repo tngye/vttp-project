@@ -34,19 +34,6 @@ public class PlayerController {
     @Autowired
     private UserService uSvc;
 
-    // @GetMapping
-    // public String getPlayers(Model model) throws IOException{
-    // List<Teams> teamsList = tSvc.getTeamsFromDb();
-    // List<Players> playerList = new ArrayList<>();
-    // // for(Teams t: teamsList){
-    // for(int i =0; i< 10; i++){
-    // playerList.addAll(pSvc.getPlayers(teamsList.get(i).getId()));
-    // }
-    // model.addAttribute("playerList", playerList);
-    // System.out.println(">>>>modelList" + playerList);
-    // return "players";
-    // }
-
     @GetMapping
     public String getPlayers(Model model, HttpSession sess) throws IOException {
         List<Players> playerList = new ArrayList<>();
@@ -58,20 +45,23 @@ public class PlayerController {
     }
 
     @GetMapping("/stats/{id}")
-    public String getStats(@PathVariable Integer id, Model model, HttpSession sess) throws IOException {
+    public String getStats(@PathVariable Integer id, Model model, HttpSession sess) {
         // System.out.println(">>>>>>name: " + id);
         // check for username
         String username = (String) sess.getAttribute("username");
         model.addAttribute("username", username);
         // getstats
-        PlayersStats stats = pSvc.getStats(id);
+        try {
+            PlayersStats stats = pSvc.getStats(id);
+        } catch (Exception e) {
+            return "error";
+        }
+
         Players player = pSvc.getPlayer(id);
         model.addAttribute("player", player);
-
         // checkfav for add icon
         if (username != null) {
             if (uSvc.checkFav(id, username)) {
-                System.out.println(">>>>>>>id & username: " + id + " " + username);
                 model.addAttribute("star", "fas");
                 model.addAttribute("addedmessage", "Added to favourites!");
             } else {
@@ -92,7 +82,11 @@ public class PlayerController {
         model.addAttribute("username", username);
 
         // get playerstats to reload page
-        PlayersStats stats = pSvc.getStats(id);
+        try {
+            PlayersStats stats = pSvc.getStats(id);
+        } catch (Exception e) {
+            return "error";
+        }
         Players player = pSvc.getPlayer(id);
         model.addAttribute("player", player);
 

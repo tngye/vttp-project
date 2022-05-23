@@ -31,7 +31,7 @@
             <tr width="100%">
                 <td width="35%" rowspan="2">
                     <img th:src="@{https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{id}.png(id=${player.id})}"
-                        width="390" height="285" style="margin-left:50px" />
+                        width="390" height="285" style="margin-left:50px" th:alt="${player.name}"/>
                 </td>
                 <td width="60%" colspan="3">
                     <span class="playername" data-th-text="${player.name}"></span><br>

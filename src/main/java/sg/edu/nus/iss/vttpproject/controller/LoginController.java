@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vttpproject.controller;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,14 @@ public class LoginController {
 
     @Autowired
     private LoginService lSvc;
-    
+
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 
     @GetMapping("/signup")
-    public String signup(){
+    public String signup() {
         return "signup";
     }
 
@@ -42,22 +43,27 @@ public class LoginController {
     }
 
     @PostMapping("/signup")
-    public String signupPost(@RequestBody MultiValueMap<String, String> form, Model model){
-        boolean added = lSvc.addUser(form);
-        model.addAttribute("message", "Sign up successfully!");
-        return "login";
+    public String signupPost(@RequestBody MultiValueMap<String, String> form, Model model, HttpSession sess) {
+        try {
+            boolean added = lSvc.addUser(form);
+            model.addAttribute("message", "Sign up successfully!");
+            // sess.setAttribute("message", "Sign up successfully!");
+            return "login";
+        } catch (Exception e) {
+            model.addAttribute("error", "Username taken!");
+            // sess.setAttribute("message", "Sign up successfully!");
+            return "signup";
+        }
     }
 
     @PostMapping("/authenticate")
-    public ModelAndView login(@RequestBody MultiValueMap<String, String> form, HttpSession sess){
+    public ModelAndView login(@RequestBody MultiValueMap<String, String> form, HttpSession sess) {
 
         Users user = Users.convert(form);
         String username = user.getUsername();
         String password = user.getPassword();
-        
-        boolean authenticate = lSvc.authenticateUser(username, password);
 
-        System.out.println(">>>> authen: " + authenticate);
+        boolean authenticate = lSvc.authenticateUser(username, password);
 
         ModelAndView mvc = new ModelAndView();
 
@@ -71,18 +77,18 @@ public class LoginController {
             // Successful
             sess.setAttribute("username", username);
             mvc = new ModelAndView("redirect:/");
-            
-            Integer id = (Integer)sess.getAttribute("id");
-            if(id !=null){
-                mvc = new ModelAndView("redirect:/players/addtofav/" + id );
+
+            Integer id = (Integer) sess.getAttribute("id");
+            if (id != null) {
+                mvc = new ModelAndView("redirect:/players/addtofav/" + id);
             }
-            Integer teamid = (Integer)sess.getAttribute("teamid");
-            if(teamid !=null){
-                mvc = new ModelAndView("redirect:/teams/addtofav/" + teamid );
+            Integer teamid = (Integer) sess.getAttribute("teamid");
+            if (teamid != null) {
+                mvc = new ModelAndView("redirect:/teams/addtofav/" + teamid);
             }
-            
+
         }
-        
+
         return mvc;
     }
 

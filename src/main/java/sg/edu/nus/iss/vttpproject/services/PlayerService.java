@@ -135,8 +135,6 @@ public class PlayerService {
 
         RequestEntity req = RequestEntity.get(url).build();
 
-        System.out.println(">>>>url: "+ url);
-
         RestTemplate template = new RestTemplate();
         ResponseEntity<String> resp = null;
         try {

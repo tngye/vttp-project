@@ -36,7 +36,6 @@ public class HomeService {
 
     public List<News> getNews(Integer page, String search) throws IOException {
         
-        System.out.println(">>>newsList.size: " + newsList.size());
         pageNumber = page;
         final String Url = "https://newsdata.io/api/1/news";
         final String keyword = "nba";
@@ -47,8 +46,6 @@ public class HomeService {
             addedkeyword = search + " AND " + keyword;
         }
 
-        System.out.println(">>>addedkeyword: " + addedkeyword);
-
         String url = UriComponentsBuilder
                 .fromUriString(Url)
                 .queryParam("apikey", newsApiKey)
@@ -57,8 +54,6 @@ public class HomeService {
                 .queryParam("language", "en")
                 .queryParam("page", page)
                 .toUriString();
-
-        System.out.println(">>>url: " + url);
 
         RequestEntity req = RequestEntity.get(url).build();
 
@@ -175,8 +170,6 @@ public List<News> collateNews(ResponseEntity<String> resp, String search) throws
     
     News news = new News();
 
-    System.out.print("search: " +search);
-    System.out.print("thissearch: " +this.search);
     if(search != this.search){
         newsList.clear();
     }

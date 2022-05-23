@@ -67,28 +67,44 @@ create table players(
     primary key (player_id)
 );
 
---create table
+-- create table
 create table usersfavplayers(
     id int not null auto_increment,
-    username varchar(32),
-    player_id int,
+    username varchar(32) not null,
+    player_id int not null,
 
     primary key (id),
 
     constraint fk_player_id
         foreign key(player_id)
         references players(player_id)
+        on delete cascade
+        on update cascade,
+
+    constraint fk_username_players
+        foreign key(username)
+        references users(username)
+        on delete cascade
+        on update cascade
 );
 
---create table
+-- create table
 create table usersfavteams(
     id int not null auto_increment,
-    username varchar(32),
-    team_id int,
+    username varchar(32) not null,
+    team_id int not null,
 
     primary key (id),
 
     constraint fk_team_id
         foreign key(team_id)
         references teams(team_id)
+        on delete cascade
+        on update cascade,
+    
+    constraint fk_username_teams
+        foreign key(username)
+        references users(username)
+        on delete cascade
+        on update cascade
 );

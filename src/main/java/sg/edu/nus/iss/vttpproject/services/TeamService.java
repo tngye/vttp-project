@@ -56,8 +56,6 @@ public class TeamService {
         }
 
         JsonArray dataArr = data.getJsonArray("response");
-
-        System.out.println(">>>>TeamsArr: " + dataArr);
         
         Teams teams = new Teams();
         List<Teams> teamsList = new ArrayList<>();
@@ -66,7 +64,6 @@ public class TeamService {
             JsonObject obj = dataArr.getJsonObject(i);
             teams = Teams.create(obj);
             teamsList.add(teams);
-            System.out.println(">>>img: " + obj.get("logo").toString());
         }
         
         return teamsList;
@@ -101,8 +98,6 @@ public class TeamService {
             ex.printStackTrace();
         }
 
-        System.out.println(">>>>resp: " + resp);
-
         JsonObject data = null;
 
         try (InputStream is = new ByteArrayInputStream(resp.getBody().getBytes())) {
@@ -112,8 +107,6 @@ public class TeamService {
 
         JsonObject dataObj = data.getJsonArray("response").getJsonObject(0);
 
-        System.out.println(">>>>dataObj: " + dataObj.getInt("games"));
-        
         TeamStats teamstats = new TeamStats();
 
         teamstats = TeamStats.create(dataObj);
@@ -127,6 +120,10 @@ public class TeamService {
 
     public Teams getTeam(Integer id) {
         return tRepo.getTeam(id);
+    }
+
+    public boolean deleteTeams(Integer id) {
+        return tRepo.deleteTeams(id);
     }
 }
 

@@ -75,5 +75,10 @@ public class UserRepository {
         }
         return ids;
     }
+
+    public boolean deleteUsername(String username) {
+        int deleted = template.update(SQL_DELETE_USER, username);
+        return deleted > 0;
+    }
     
 }
