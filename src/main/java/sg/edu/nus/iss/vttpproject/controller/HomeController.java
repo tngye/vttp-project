@@ -34,7 +34,6 @@ public class HomeController {
     @GetMapping("/searchnews")
     public String searchnews(@RequestParam String search, Model model, HttpSession sess) throws IOException{
         // String addkeyword = search + " AND " + keyword;
-        // System.out.println(">>>search: " + search);
         boolean active = true;
         List<News> newsList = hSvc.getNews(0, search);
         model.addAttribute("newsList", newsList);
