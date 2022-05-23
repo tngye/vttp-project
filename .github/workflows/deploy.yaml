@@ -1,7 +1,7 @@
 name: Pipeline 2
 on: 
   release:
-    tags: [published]
+    types: [published]
 jobs:
   deploy_to_heroku:
     runs-on: ubuntu-latest
